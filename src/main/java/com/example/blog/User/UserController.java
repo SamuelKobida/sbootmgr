@@ -6,39 +6,39 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("users")
+@RequestMapping("/")
 public class UserController {
     private final UserService userService;
 
 
     @Autowired
     public UserController(UserService userService) {
-         this.userService = userService;
+        this.userService = userService;
     }
 
-    @GetMapping
+    @GetMapping(path="users")
     public List<User> getUsers(){
         return userService.getUsers();
     }
 
-    @PostMapping
+    @PostMapping(path="user/create")
     public void registerNewUser(@RequestBody User user){
         userService.addNewUser(user);
 
     }
 
-    @DeleteMapping(path="{userId}")
+    @DeleteMapping(path="user/delete/{userId}")
     public void deleteUser(@PathVariable("userId") Long userId){
         userService.deleteUser(userId);
 
     }
 
-    @PutMapping(path="{userId}")
+    @PutMapping(path="user/update/{userId}")
     public void updateUser(
             @PathVariable("userId") Long userId,
             @RequestBody(required = false)User newUser
     ){
-    userService.updateUser(newUser,userId);
+        userService.updateUser(newUser,userId);
     }
 }
 
