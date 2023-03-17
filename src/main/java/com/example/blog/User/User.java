@@ -1,8 +1,10 @@
 package com.example.blog.User;
+import com.example.blog.Child.Child;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.util.Date;
+import java.util.List;
 import javax.persistence.*;
 
 @Entity
@@ -10,8 +12,8 @@ import javax.persistence.*;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="Id")
-    private long Id;
+    @Column(name="id")
+    private long id;
     @Column(name="first_name")
     private String first_name;
     @Column(name="last_name")
@@ -20,6 +22,14 @@ public class User {
     private String email;
     @Column(name="phone_number")
     private Integer phone_number;
+
+
+
+    @OneToMany(mappedBy = "user")
+    private List<Child> children;
+
+
+
     @CreationTimestamp
     @Column(name="created_At", updatable = false)
     private Date created_At;
@@ -38,8 +48,8 @@ public class User {
         this.phone_number = phone_number;
     }
 
-    public User(long Id, String first_name, String last_name, String email,Integer phone_number) {
-        this.Id = Id;
+    public User(long id, String first_name, String last_name, String email,Integer phone_number) {
+        this.id = id;
         this.first_name = first_name;
         this.last_name = last_name;
         this.email = email;
@@ -78,7 +88,7 @@ public class User {
         this.phone_number = phone_number;
     }
 
-    public Long getId(){return Id;}
+    public Long getId(){return id;}
 
 
 }
