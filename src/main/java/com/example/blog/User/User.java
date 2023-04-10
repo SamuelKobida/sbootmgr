@@ -5,7 +5,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.util.Date;
 import java.util.List;
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name="users")
@@ -23,9 +23,7 @@ public class User {
     @Column(name="phone_number")
     private Integer phone_number;
 
-
-
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Child> children;
 
 

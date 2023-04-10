@@ -2,38 +2,38 @@ package com.example.blog.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 
+@Transactional
 @RestController
-@RequestMapping("/")
 public class UserController {
 
     @Autowired
     private UserRepository repository;
 
 
-    @GetMapping(path="users")
+    @GetMapping(path="/user")
     public List<User> getUsers() {
         List<User> list =  repository.findAll();
 
         return list;
     }
 
-    @PostMapping(path="user/create")
+    @PostMapping(path="/user/create")
     public User saveUser(@RequestBody User user) {
         return repository.save(user);
     }
 
 
-    @DeleteMapping(path="user/delete/{userId}")
+    @DeleteMapping(path="/user/{userId}/delete")
     public String deleteUser(@PathVariable("userId") Long userId) {
         repository.deleteById(userId);
         return "Pouzivatel vymazany";
     }
 
-
-    @PutMapping(path="user/update/{userId}")
+    @PutMapping(path="/user/{userId}/update")
     public User updateUser(
             @PathVariable("userId") Long userId,
             @RequestBody User newUser)throws Exception {
@@ -47,8 +47,6 @@ public class UserController {
 
         final User updatedUser = repository.save(user);
         return updatedUser;
-
-
     }
 
 }
